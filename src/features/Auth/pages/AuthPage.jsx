@@ -14,6 +14,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { userApi } from '../../../api/userApi';
 import { useState } from 'react';
+import { login } from '../authSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -24,11 +27,10 @@ function Copyright(props) {
       {...props}
     >
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
+      <Link color="inherit" href="https://SAN.com/">
+        SAN
+      </Link>
       {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 }
@@ -39,6 +41,8 @@ export default function SignIn() {
   const [studentId, setStudentId] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleStudentIdChange = (e) => {
     setStudentId(e.target.value);
@@ -56,7 +60,12 @@ export default function SignIn() {
         password,
       });
 
-      console.log(response);
+      const loginInfo = {
+        userInfo: response.data.data,
+        token: response.data.token,
+      };
+      dispatch(login(loginInfo));
+      navigate('/');
     } catch (error) {
       setErrorMsg(error.response.data.message);
     }

@@ -6,6 +6,7 @@ import Auth from './features/Auth';
 import { Container, Grid } from '@mui/material';
 import { Box, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import Post from './features/Post';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,10 +29,8 @@ function App() {
             <Paper elevation={1}>
               <Box padding={1}>
                 <Routes>
-                  <Route path="/" element={<PostListPage />} exact />
+                  <Route path="/" element={<Post />} exact />
                   <Route path="/login" element={<Auth />} />
-                  {/* <Route path="/cart" component={() => import('')} />
-                  <Route component={() => import('')} /> */}
                 </Routes>
               </Box>
             </Paper>

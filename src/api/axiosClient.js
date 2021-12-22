@@ -1,21 +1,21 @@
-import axios from "axios";
-import { STATIC_HOST } from "../constant";
+import axios from 'axios';
+import { STATIC_HOST } from '../constant';
 
 const axiosClient = axios.create({
   baseURL: STATIC_HOST,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 // Interceptor
 axiosClient.interceptors.request.use(
   function (config) {
-    const user_token = localStorage.getItem("token");
+    const user_token = localStorage.getItem('TOKEN');
     if (user_token) {
-      config.headers["Authorization"] = "Bearer " + user_token;
+      config.headers['Authorization'] = 'Bearer ' + user_token;
     }
-    config.headers["Content-type"] = "application/json";
+    config.headers['Content-type'] = 'application/json';
 
     return config;
   },

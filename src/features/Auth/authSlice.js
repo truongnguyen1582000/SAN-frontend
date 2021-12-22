@@ -12,8 +12,11 @@ const userSlice = createSlice({
       localStorage.removeItem('USER');
       localStorage.removeItem('TOKEN');
     },
-    login: (state, payload) => {
+    login: (state, { payload }) => {
+      console.log(payload);
       state.current = payload;
+      localStorage.setItem('USER', JSON.stringify(payload.userInfo));
+      localStorage.setItem('TOKEN', payload.token);
     },
   },
 });
