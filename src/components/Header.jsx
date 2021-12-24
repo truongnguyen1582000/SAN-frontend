@@ -2,16 +2,15 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import { InputBase, Menu, MenuItem, Typography } from '@material-ui/core';
+import { Menu, MenuItem, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../features/Auth/authSlice';
 import { FormGroup, Label, Input } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,8 +29,9 @@ export default function ButtonAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const user = useSelector((state) => state.user.current);
-  const isLoggedIn = !!user.userInfo;
+  const isLoggedIn = !!user._id;
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -43,12 +43,13 @@ export default function ButtonAppBar() {
 
   const handleLogout = () => {
     dispatch(logout());
+    enqueueSnackbar('Bye !!!', {
+      variant: 'success',
+    });
     setAnchorEl(null);
   };
 
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className={classes.root}>
@@ -72,7 +73,7 @@ export default function ButtonAppBar() {
               alignItems: 'center',
             }}
           >
-            <NavLink to="/" className="nav-link">
+            <NavLink to="/post" className="nav-link">
               Post
             </NavLink>
             <NavLink to="/event" className="nav-link right-separate">

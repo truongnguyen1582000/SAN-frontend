@@ -9,7 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { DialogTitle } from '@material-ui/core';
@@ -33,7 +33,7 @@ function CreatePostForm({ handleCreatePost, handleCloseForm }) {
   const [topics, setTopics] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [selectedTopic, setSelectedTopic] = useState('');
-  const navigate = useNavigate();
+  const navigate = useHistory();
 
   const handleTopicChange = (event) => {
     setSelectedTopic(event.target.value);
@@ -51,7 +51,7 @@ function CreatePostForm({ handleCreatePost, handleCloseForm }) {
     const getAllTopics = async () => {
       try {
         const response = await getAll();
-        setTopics(response.data.data);
+        setTopics(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -77,7 +77,7 @@ function CreatePostForm({ handleCreatePost, handleCloseForm }) {
     } catch (error) {
       console.log({ error });
       if (error.response.status === 401) {
-        navigate('/login');
+        navigate.push('/login');
       }
     }
     setPostTitle('');

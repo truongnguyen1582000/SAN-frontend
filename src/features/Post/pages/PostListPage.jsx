@@ -3,11 +3,12 @@ import { getPostList } from '../../../api/postApi';
 import { useEffect } from 'react';
 import PostList from '../components/PostList';
 import CreatePostForm from '../components/CreatePostForm';
-import { Button, Dialog } from '@material-ui/core';
+import { Button, CircularProgress, Dialog } from '@material-ui/core';
 
 function PostListPage(props) {
   const [postList, setpostList] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,10 +20,11 @@ function PostListPage(props) {
 
   const fectchPostList = async () => {
     try {
-      const response = await getPostList();
-      const data = response.data.data;
-      setpostList(data);
+      setIsLoading(true);
+      const data = await getPostList();
+      setpostList(data.data);
       console.log(data);
+      setIsLoading(false);
     } catch (error) {
       console.log({ error });
     }
@@ -37,7 +39,7 @@ function PostListPage(props) {
         variant="outlined"
         color="primary"
         onClick={handleClickOpen}
-        className="mb-2"
+        className="mb-3"
       >
         Create new post
       </Button>
@@ -51,6 +53,8 @@ function PostListPage(props) {
           handleCloseForm={handleClose}
         />
       </Dialog>
+      <br />
+      {isLoading && <CircularProgress />}
       <PostList postList={postList} />
     </div>
   );

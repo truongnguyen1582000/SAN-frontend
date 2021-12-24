@@ -9,3 +9,8 @@ export const getPostList = () => {
   const url = '/post';
   return axiosClient.get(url);
 };
+
+export const getPostItem = (id) => {
+  const url = `/post/${id}`;
+  return axiosClient.get(url);
+};

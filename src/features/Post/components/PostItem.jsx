@@ -3,12 +3,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Badge } from 'reactstrap';
 
 function PostItem({ post }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const navigate = useNavigate();
+  const navigate = useHistory();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -19,11 +19,11 @@ function PostItem({ post }) {
   };
 
   const handleRedirect = () => {
-    navigate(`/post/${post._id}`);
+    navigate.push(`/post/${post._id}`);
   };
 
   return (
-    <div className="wrapper" onClick={handleRedirect}>
+    <div className="wrapper">
       <div className="left">
         <div className="left-top">
           <p>{post.upvote.length - post.downvote.length}</p>
@@ -35,8 +35,17 @@ function PostItem({ post }) {
         </div>
       </div>
       <div className="outer-right">
-        <div className="right">
-          <p className="right-top">{post.postTitle}</p>
+        <div
+          className="right"
+          onClick={handleRedirect}
+          style={{ cursor: 'pointer' }}
+        >
+          <p
+            className="right-top mb-2"
+            style={{ fontWeight: 'bold', fontSize: '20px' }}
+          >
+            {post.postTitle}
+          </p>
           <p className="right-center">{post.postContent}</p>
 
           {post.topic && (

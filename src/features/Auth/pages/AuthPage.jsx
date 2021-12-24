@@ -16,7 +16,8 @@ import { userApi } from '../../../api/userApi';
 import { useState } from 'react';
 import { login } from '../authSlice';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 function Copyright(props) {
   return (
@@ -42,7 +43,8 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigate = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleStudentIdChange = (e) => {
     setStudentId(e.target.value);
@@ -55,19 +57,24 @@ export default function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await userApi.login({
+      const data = await userApi.login({
         studentId,
         password,
       });
 
+      console.log(data);
+
       const loginInfo = {
-        userInfo: response.data.data,
-        token: response.data.token,
+        userInfo: data.data,
+        token: data.token,
       };
       dispatch(login(loginInfo));
-      navigate('/');
+      enqueueSnackbar('Wellcome to SAN !!!', {
+        variant: 'success',
+      });
+      navigate.push('/');
     } catch (error) {
-      setErrorMsg(error.response.data.message);
+      setErrorMsg(error);
     }
   };
 
