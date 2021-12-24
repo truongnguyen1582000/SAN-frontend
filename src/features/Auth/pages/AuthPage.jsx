@@ -41,7 +41,6 @@ const theme = createTheme();
 export default function SignIn() {
   const [studentId, setStudentId] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
   const dispatch = useDispatch();
   const navigate = useHistory();
   const { enqueueSnackbar } = useSnackbar();
@@ -62,8 +61,6 @@ export default function SignIn() {
         password,
       });
 
-      console.log(data);
-
       const loginInfo = {
         userInfo: data.data,
         token: data.token,
@@ -73,8 +70,10 @@ export default function SignIn() {
         variant: 'success',
       });
       navigate.push('/');
-    } catch (error) {
-      setErrorMsg(error);
+    } catch (err) {
+      enqueueSnackbar('Your student id or password is invalid', {
+        variant: 'error',
+      });
     }
   };
 
@@ -125,11 +124,7 @@ export default function SignIn() {
               value={password}
               onChange={handlePwdChange}
             />
-            {errorMsg !== '' && (
-              <Typography className="error-message" style={{ color: 'red' }}>
-                {errorMsg}
-              </Typography>
-            )}
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"

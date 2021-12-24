@@ -54,7 +54,7 @@ function PostListPage(props) {
         />
       </Dialog>
       <br />
-      {isLoading && <CircularProgress />}
+      {isLoading && <CircularProgress className="mb-2" />}
       <PostList postList={postList} />
     </div>
   );

@@ -14,3 +14,28 @@ export const getPostItem = (id) => {
   const url = `/post/${id}`;
   return axiosClient.get(url);
 };
+
+export const voteUpPost = (id) => {
+  const url = `/post/${id}/vote-up`;
+  return axiosClient.post(url);
+};
+
+export const voteDownPost = (id) => {
+  const url = `/post/${id}/vote-down`;
+  return axiosClient.post(url);
+};
+
+export const createComment = (id, comment) => {
+  const url = `/post/${id}/comment`;
+  return axiosClient.post(url, comment);
+};
+
+export const voteUpComment = (postId, commentId) => {
+  const url = `/:${postId}/comment/:${commentId}/vote-up`;
+  return axiosClient.post(url);
+};
+
+export const voteDownComment = (postId, commentId) => {
+  const url = `/:${postId}/comment/:${commentId}/vote-down`;
+  return axiosClient.post(url);
+};

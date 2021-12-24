@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { DialogTitle } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -33,6 +34,7 @@ function CreatePostForm({ handleCreatePost, handleCloseForm }) {
   const [topics, setTopics] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [selectedTopic, setSelectedTopic] = useState('');
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useHistory();
 
   const handleTopicChange = (event) => {
@@ -76,7 +78,9 @@ function CreatePostForm({ handleCreatePost, handleCloseForm }) {
       handleCreatePost();
     } catch (error) {
       console.log({ error });
-      if (error.response.status === 401) {
+      if (error.status === 401) {
+        console.log('object');
+        enqueueSnackbar('Please Login First', { variant: 'error' });
         navigate.push('/login');
       }
     }

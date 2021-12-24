@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import { Menu, MenuItem, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../features/Auth/authSlice';
@@ -32,6 +32,7 @@ export default function ButtonAppBar() {
   const isLoggedIn = !!user._id;
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useHistory();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -44,8 +45,9 @@ export default function ButtonAppBar() {
   const handleLogout = () => {
     dispatch(logout());
     enqueueSnackbar('Bye !!!', {
-      variant: 'success',
+      variant: 'info',
     });
+    navigate.push('/login');
     setAnchorEl(null);
   };
 
@@ -108,7 +110,7 @@ export default function ButtonAppBar() {
                   onClose={handleMenuClose}
                 >
                   <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+                  <MenuItem onClick={handleMenuClose}>Select Topic</MenuItem>
                   <MenuItem onClick={handleLogout}>Log out</MenuItem>
                 </Menu>
               </div>
