@@ -25,7 +25,11 @@ function Commentor({ postId, refectPost }) {
   };
 
   return (
-    <form className="d-flex align-item-center" onSubmit={handleSubmit}>
+    <form
+      className="d-flex align-item-center"
+      onSubmit={handleSubmit}
+      style={{ marginBottom: '16px' }}
+    >
       <TextField
         type="text"
         value={value}

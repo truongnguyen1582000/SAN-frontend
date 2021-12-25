@@ -57,9 +57,16 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar>
-          <Typography variant="h6" style={{ marginRight: '20px' }}>
-            Student's Academic Network
-          </Typography>
+          <Link
+            to="/"
+            style={{
+              marginRight: '20px',
+              textDecoration: 'none',
+              color: '#fff',
+            }}
+          >
+            <Typography variant="h6">Student's Academic Network</Typography>
+          </Link>
           <FormGroup className="mt-3">
             <Input
               id="exampleSearch"

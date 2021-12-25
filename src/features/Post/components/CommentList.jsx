@@ -1,16 +1,16 @@
 import React from 'react';
 import CommentItem from './CommentItem';
 
-function CommentList({ commentList, postId, refectPost }) {
-  console.log(commentList);
+function CommentList({ commentList, postId, refetchPost }) {
+  const commentLists = commentList;
 
   return (
     <ul>
-      {commentList.map((comment) => (
+      {commentLists?.map((comment) => (
         <CommentItem
           key={comment._id}
           comment={comment}
-          refectPost={refectPost}
+          refetchPost={refetchPost}
           postId={postId}
         />
       ))}

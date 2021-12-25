@@ -7,6 +7,7 @@ import { Box, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Post from './features/Post';
 import Home from './components/Home';
+import Footer from './components/Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,7 @@ function App() {
           </Grid>
         </Grid>
       </Container>
+      <Footer />
     </div>
   );
 }

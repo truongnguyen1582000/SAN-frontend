@@ -31,11 +31,16 @@ export const createComment = (id, comment) => {
 };
 
 export const voteUpComment = (postId, commentId) => {
-  const url = `/:${postId}/comment/:${commentId}/vote-up`;
+  const url = `/post/${postId}/comment/${commentId}/vote-up`;
   return axiosClient.post(url);
 };
 
 export const voteDownComment = (postId, commentId) => {
-  const url = `/:${postId}/comment/:${commentId}/vote-down`;
+  const url = `/post/${postId}/comment/${commentId}/vote-down`;
   return axiosClient.post(url);
+};
+
+export const deleteComment = (postId, commentId) => {
+  const url = `/post/${postId}/comment/${commentId}`;
+  return axiosClient.delete(url);
 };

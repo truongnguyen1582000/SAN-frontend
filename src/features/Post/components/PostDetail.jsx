@@ -111,11 +111,11 @@ function PostDetail(props) {
                         width: '28px',
                         height: '28px',
                         marginRight: '6px',
-                        color: `${randomColor()}`,
-                        backgroundColor: `${randomColor()}`,
+                        color: `#fff`,
+                        backgroundColor: `purple`,
                       }}
                     >
-                      T
+                      {post.author?.name.split(' ').reverse()[0].split('')[0]}
                     </Avatar>
                     <span>{post.author?.name}</span>
                   </div>
@@ -165,7 +165,7 @@ function PostDetail(props) {
         <CommentList
           commentList={post.postComment}
           postId={post._id}
-          refectPost={refetchPost}
+          refetchPost={refetchPost}
         />
       </Container>
     </div>
