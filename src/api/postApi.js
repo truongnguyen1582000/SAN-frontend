@@ -44,3 +44,8 @@ export const deleteComment = (postId, commentId) => {
   const url = `/post/${postId}/comment/${commentId}`;
   return axiosClient.delete(url);
 };
+
+export const searchPost = (searchKey) => {
+  const url = `/post/search${searchKey}`;
+  return axiosClient.get(url);
+};

@@ -106,7 +106,7 @@ export default function SignIn() {
               required
               fullWidth
               id="studentId"
-              label="Student id"
+              label="ID"
               name="studentId"
               autoFocus
               value={studentId}

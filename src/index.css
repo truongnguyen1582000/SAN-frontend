@@ -272,3 +272,22 @@ code {
   align-items: flex-start;
   height: 100%;
 }
+
+.selected {
+  position: relative;
+}
+
+.selected:after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 6px;
+  height: 6px;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+
+  border-right: 6px solid #406882;
+}

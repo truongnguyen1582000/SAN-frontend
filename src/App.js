@@ -8,6 +8,9 @@ import { makeStyles } from '@material-ui/styles';
 import Post from './features/Post';
 import Home from './components/Home';
 import Footer from './components/Footer';
+import Event from './features/Event';
+import Dashboard from './features/Dashboard/index';
+import SearchPostList from './features/SearchPostList';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,8 +35,10 @@ function App() {
                 <Switch>
                   <Route path="/" exact component={Home} />
                   <Route path="/post" component={Post} />
-                  {/* <Route path="/event" exact component={Event} /> */}
+                  <Route path="/search" component={SearchPostList} />
+                  <Route path="/event" component={Event} />
                   <Route path="/login" component={Auth} />
+                  <Route path="/dashboard" component={Dashboard} />
                 </Switch>
               </Box>
             </Paper>

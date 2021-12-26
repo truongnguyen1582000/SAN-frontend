@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import { Menu, MenuItem, Typography } from '@material-ui/core';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../features/Auth/authSlice';
 import { FormGroup, Label, Input } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import queryString from 'query-string';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +34,24 @@ export default function ButtonAppBar() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useHistory();
+  const [searchKey, setSearchKey] = useState('');
+
+  const handleSubmit = (e) => {
+    if (e.keyCode === 13) {
+      console.log(searchKey);
+      setSearchKey('');
+      navigate.push({
+        pathname: '/search',
+        search: queryString.stringify({
+          name: searchKey,
+        }),
+      });
+    }
+  };
+
+  const handleChange = (e) => {
+    setSearchKey(e.target.value);
+  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -73,6 +92,9 @@ export default function ButtonAppBar() {
               name="search"
               placeholder="Search..."
               type="search"
+              value={searchKey}
+              onChange={handleChange}
+              onKeyDown={handleSubmit}
             />
           </FormGroup>
           <div
@@ -82,6 +104,11 @@ export default function ButtonAppBar() {
               alignItems: 'center',
             }}
           >
+            {user.role === 'admin' && (
+              <NavLink to="/dashboard" className="nav-link">
+                Dashboard
+              </NavLink>
+            )}
             <NavLink to="/post" className="nav-link">
               Post
             </NavLink>

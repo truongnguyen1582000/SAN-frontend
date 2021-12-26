@@ -5,7 +5,6 @@ function Home(props) {
   return (
     <div>
       <UncontrolledCarousel
-        style={{ height: '700px' }}
         items={[
           {
             key: 1,

@@ -12,7 +12,7 @@ import Select from '@material-ui/core/Select';
 import { useHistory } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-import { DialogTitle } from '@material-ui/core';
+import { Dialog, DialogTitle, TextField, Typography } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
@@ -67,6 +67,12 @@ function CreatePostForm({ handleCreatePost, handleCloseForm }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log({
+      postType: postType,
+      postTitle: postTitle,
+      postContent: postContent,
+      topicId: selectedTopic,
+    });
 
     try {
       await createPost({
@@ -97,58 +103,84 @@ function CreatePostForm({ handleCreatePost, handleCloseForm }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="create-post">
-      <p>Create post</p>
+    <form
+      onSubmit={handleSubmit}
+      className="create-post"
+      style={{ width: '500px', padding: '8px' }}
+    >
+      <Typography
+        variant="h5"
+        style={{ textAlign: 'center', color: 'blue', fontWeight: 'bold' }}
+      >
+        NEW POST
+      </Typography>
 
-      <label htmlFor="">Post title</label>
-      <input
-        type="text"
-        name="postTitle"
+      <TextField
+        id="standard-basic"
+        label="Post title"
         value={postTitle}
         onChange={handlePostTitleChange}
+        style={{ marginBottom: '8px', padding: '0', width: '100%' }}
       />
-      <br />
-      <label htmlFor="">Post content</label>
-      <input
-        type="text"
+
+      <TextField
+        id="standard-basic"
+        label="Post content"
         value={postContent}
         onChange={handlePostContentChange}
         name="postContent"
+        style={{ width: '100%', marginBottom: '32px' }}
       />
       <br />
-      <FormControl component="fieldset">
+      <FormControl component="fieldset" style={{ width: '100%' }}>
         <FormLabel component="legend">Post type</FormLabel>
-        <RadioGroup name="gender1" value={postType} onChange={handleChange}>
-          <FormControlLabel
-            value="question"
-            control={<Radio />}
-            label="Question"
-          />
-          <FormControlLabel value="blog" control={<Radio />} label="Blog" />
+        <RadioGroup name="postType" value={postType} onChange={handleChange}>
+          <div className="d-flex">
+            <FormControlLabel
+              value="question"
+              control={<Radio />}
+              label="Question"
+            />
+            <FormControlLabel value="blog" control={<Radio />} label="Blog" />
+            <FormControl
+              className={classes.formControl}
+              style={{ marginBottom: '20px', marginLeft: 'auto' }}
+            >
+              <InputLabel id="demo-controlled-open-select-label">
+                Topics
+              </InputLabel>
+              <Select
+                labelId="demo-controlled-open-select-label"
+                id="demo-controlled-open-select"
+                open={open}
+                onClose={handleClose}
+                onOpen={handleOpen}
+                value={selectedTopic}
+                onChange={handleTopicChange}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {topics.map((topic) => (
+                  <MenuItem value={topic._id}>{topic.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
         </RadioGroup>
       </FormControl>
       <br />
 
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Topics</InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value={selectedTopic}
-          onChange={handleTopicChange}
+      <div style={{ textAlign: 'center' }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleCloseForm()}
+          type="submit"
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {topics.map((topic) => (
-            <MenuItem value={topic._id}>{topic.name}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <button onClick={() => handleCloseForm()}>post</button>
+          POST
+        </Button>
+      </div>
     </form>
   );
 }
