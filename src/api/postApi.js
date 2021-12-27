@@ -49,3 +49,8 @@ export const searchPost = (searchKey) => {
   const url = `/post/search${searchKey}`;
   return axiosClient.get(url);
 };
+
+export const getTrainingPoint = (id) => {
+  const url = `/post/training-point/${id}`;
+  return axiosClient.get(url);
+};

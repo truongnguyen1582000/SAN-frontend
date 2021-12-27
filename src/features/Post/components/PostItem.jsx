@@ -5,9 +5,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useHistory } from 'react-router-dom';
 import { Badge } from 'reactstrap';
+import { useSnackbar } from 'notistack';
 
 function PostItem({ post }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useHistory();
 
   const handleClick = (event) => {
@@ -16,6 +18,7 @@ function PostItem({ post }) {
 
   const handleClose = () => {
     setAnchorEl(null);
+    enqueueSnackbar('Function is under maintenance', { variant: 'info' });
   };
 
   const handleRedirect = () => {

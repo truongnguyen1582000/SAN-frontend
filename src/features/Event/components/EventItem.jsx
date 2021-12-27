@@ -22,15 +22,8 @@ function EventItem({ event, refetchEvent, adminMode, refetchEventAdmin }) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = async () => {
+  const handleClose = () => {
     setAnchorEl(null);
-    try {
-      await deleteEvent(event._id);
-      refetchEventAdmin();
-      enqueueSnackbar('Delete event successfully', { variant: 'success' });
-    } catch (error) {
-      console.log({ error });
-    }
   };
 
   const handleRedirect = () => {
@@ -63,8 +56,18 @@ function EventItem({ event, refetchEvent, adminMode, refetchEventAdmin }) {
     }
   };
 
+  const handleDeleteEvent = async () => {
+    try {
+      await deleteEvent(event._id);
+      refetchEventAdmin();
+      enqueueSnackbar('Delete event successfully', { variant: 'success' });
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
   return (
-    <div className="wrapper" onClick={handleRedirect}>
+    <div className="wrapper">
       {!adminMode && (
         <div className="left">
           {isRegisted ? (
@@ -126,7 +129,14 @@ function EventItem({ event, refetchEvent, adminMode, refetchEventAdmin }) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Delete</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  handleDeleteEvent();
+                }}
+              >
+                Delete
+              </MenuItem>
             </Menu>
           </div>
         )}

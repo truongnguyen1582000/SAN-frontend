@@ -1,20 +1,8 @@
-import { useSnackbar } from 'notistack';
 import React from 'react';
-import { Button, Table } from 'reactstrap';
-import { deleteUser } from '../../../api/userApi';
+import { Table } from 'reactstrap';
+import UserItem from './UserItem';
 
-function UserList({ userList, refetchUser }) {
-  const { enqueueSnackbar } = useSnackbar();
-  const handleDeleteUser = async (id) => {
-    try {
-      await deleteUser(id);
-      enqueueSnackbar('Delete user successfully', { variant: 'success' });
-      refetchUser();
-    } catch (error) {
-      enqueueSnackbar(error.data.message, { variant: 'error' });
-    }
-  };
-
+function UserList({ userList, refetchUser, tpMode }) {
   return (
     <div style={{ marginTop: '16px' }}>
       <Table striped>
@@ -27,28 +15,18 @@ function UserList({ userList, refetchUser }) {
             <th>Faculty</th>
             <th>Course</th>
             <th>Role</th>
-            <th>Action</th>
+            {!tpMode && <th>Action</th>}
+            {tpMode && <th>Training Point</th>}
           </tr>
         </thead>
         <tbody>
           {userList.map((user, index) => (
-            <tr>
-              <th scope="row">{index}</th>
-              <td>{user.studentId}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.faculty}</td>
-              <td>{user.course}</td>
-              <td>{user.role}</td>
-              <td>
-                <Button
-                  color="danger"
-                  onClick={() => handleDeleteUser(user._id)}
-                >
-                  Delete
-                </Button>
-              </td>
-            </tr>
+            <UserItem
+              user={user}
+              index={index}
+              refetchUser={refetchUser}
+              tpMode={tpMode}
+            />
           ))}
         </tbody>
       </Table>

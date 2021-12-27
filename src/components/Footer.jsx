@@ -16,7 +16,7 @@ function Footer(props) {
     );
   }
   return (
-    <Box sx={{ bgcolor: '#3F51B5', p: 6, mt: 4 }} component="footer">
+    <Box sx={{ bgcolor: '#C10000', p: 6, mt: 4 }} component="footer">
       <Typography variant="h5" align="center" gutterBottom>
         Student's Academic Network
       </Typography>

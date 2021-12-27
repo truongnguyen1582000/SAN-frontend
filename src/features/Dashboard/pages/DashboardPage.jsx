@@ -7,6 +7,9 @@ import { NavLink, useHistory } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import CreateEventForm from '../components/CreateEventForm';
 import CreateUserForm from '../components/CreateUserForm';
+import Topic from '../components/Topic';
+import TrainingPoint from '../components/TrainingPoint';
+import ReportedPost from '../components/ReportedPost';
 
 function DashboardPage(props) {
   const user = useSelector((state) => state.user.current);
@@ -85,6 +88,20 @@ function DashboardPage(props) {
         >
           Topic management
         </h6>
+        <h6
+          className={seletedCpn === 'Reported Posts' ? 'selected' : ''}
+          style={{
+            color: '#406882',
+            textDecoration: 'none',
+            marginBottom: '16px',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+          }}
+          onClick={() => setSeletedCpn('Reported Posts')}
+        >
+          Reported posts
+        </h6>
         <NavLink
           className={seletedCpn === 'Training Point' ? 'selected' : ''}
           to="/dashboard/training-point"
@@ -111,6 +128,9 @@ function DashboardPage(props) {
 
         {seletedCpn === 'Event' && <CreateEventForm />}
         {seletedCpn === 'User' && <CreateUserForm />}
+        {seletedCpn === 'Topic' && <Topic />}
+        {seletedCpn === 'Training Point' && <TrainingPoint />}
+        {seletedCpn === 'Reported Posts' && <ReportedPost />}
       </div>
     </div>
   );

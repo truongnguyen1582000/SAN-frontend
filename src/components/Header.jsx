@@ -74,7 +74,7 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" style={{ backgroundColor: '#C10000' }}>
         <Toolbar>
           <Link
             to="/"

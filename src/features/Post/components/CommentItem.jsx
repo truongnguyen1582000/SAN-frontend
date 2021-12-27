@@ -71,7 +71,7 @@ function CommentItem({ comment, postId, refetchPost }) {
   };
 
   const handleReportComment = async () => {
-    enqueueSnackbar('FUNCTION ON PROGRESS', { variant: 'info' });
+    enqueueSnackbar('Function is under maintenance', { variant: 'info' });
   };
 
   return (
