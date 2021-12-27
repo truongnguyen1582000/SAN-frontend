@@ -1,10 +1,10 @@
-import { Avatar, Container, Grid, Paper, Typography } from '@material-ui/core';
+import { Avatar, Container, Grid, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { getPostItem, voteDownPost, voteUpPost } from '../../../api/postApi';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
-import randomColor from 'randomcolor';
+// import randomColor from 'randomcolor';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
@@ -70,18 +70,22 @@ function PostDetail(props) {
     }
   };
 
-  useEffect(() => {
-    const getPost = async () => {
-      try {
-        const response = await getPostItem(postId);
-        console.log(response.data);
-        setPost(response.data);
-      } catch (error) {
-        enqueueSnackbar(error, { variant: 'error' });
-      }
-    };
-    getPost();
-  }, []);
+  useEffect(
+    () => {
+      const getPost = async () => {
+        try {
+          const response = await getPostItem(postId);
+          console.log(response.data);
+          setPost(response.data);
+        } catch (error) {
+          enqueueSnackbar(error, { variant: 'error' });
+        }
+      };
+      getPost();
+    },
+    // eslint-disable-next-line
+    []
+  );
   return (
     <div>
       <Container>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getAllEvent } from '../../../api/eventApi';
 import EventList from '../../Event/components/EventList';
 import EventCreator from './EventCreator';
-import { Button, CircularProgress, Dialog } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 
 function CreateEventForm(props) {
   const [eventList, setEventList] = useState([]);

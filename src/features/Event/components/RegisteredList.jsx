@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import StudentItem from './StudentItem';
+// import StudentItem from './StudentItem';
 
 function RegisteredList({ studentList }) {
   console.log(studentList);

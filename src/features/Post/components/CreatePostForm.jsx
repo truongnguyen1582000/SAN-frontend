@@ -12,7 +12,7 @@ import Select from '@material-ui/core/Select';
 import { useHistory } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-import { Dialog, DialogTitle, TextField, Typography } from '@material-ui/core';
+import { TextField, Typography } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({

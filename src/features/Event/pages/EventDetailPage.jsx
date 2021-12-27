@@ -11,17 +11,21 @@ function EventDetailPage(props) {
   const { params } = useRouteMatch();
   const eventId = params.id;
 
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        const response = await getEvent(eventId);
-        setEvent(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchEvent();
-  }, []);
+  useEffect(
+    () => {
+      const fetchEvent = async () => {
+        try {
+          const response = await getEvent(eventId);
+          setEvent(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchEvent();
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   return (
     <div>

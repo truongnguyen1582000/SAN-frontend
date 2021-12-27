@@ -82,17 +82,21 @@ function CreateUserForm(props) {
     }
   };
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await getAll();
-        setUserList(response.data);
-      } catch (error) {
-        enqueueSnackbar(error.data.message, { variant: 'error' });
-      }
-    };
-    fetchUsers();
-  }, []);
+  useEffect(
+    () => {
+      const fetchUsers = async () => {
+        try {
+          const response = await getAll();
+          setUserList(response.data);
+        } catch (error) {
+          enqueueSnackbar(error.data.message, { variant: 'error' });
+        }
+      };
+      fetchUsers();
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   return (
     <div>

@@ -9,7 +9,7 @@ import {
   voteDownComment,
   voteUpComment,
 } from '../../../api/postApi';
-import randomColor from 'randomcolor';
+// import randomColor from 'randomcolor';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';

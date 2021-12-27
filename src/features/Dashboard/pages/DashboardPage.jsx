@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import CreateTopicForm from '../components/CreateTopicForm';
+// import CreateTopicForm from '../components/CreateTopicForm';
 import Typography from '@mui/material/Typography';
 import CreateEventForm from '../components/CreateEventForm';
 import CreateUserForm from '../components/CreateUserForm';
@@ -14,12 +14,16 @@ function DashboardPage(props) {
   const navigate = useHistory();
   const [seletedCpn, setSeletedCpn] = useState('Event');
 
-  useEffect(() => {
-    if (user.role !== 'admin') {
-      enqueueSnackbar('You not have permission', { variant: 'warning' });
-      navigate.push('/');
-    }
-  }, []);
+  useEffect(
+    () => {
+      if (user.role !== 'admin') {
+        enqueueSnackbar('You not have permission', { variant: 'warning' });
+        navigate.push('/');
+      }
+    },
+    // eslint-disable-next-line
+    []
+  );
   return (
     <div
       style={{

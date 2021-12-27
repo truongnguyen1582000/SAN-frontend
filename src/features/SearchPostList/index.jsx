@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { searchPost } from '../../api/postApi';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 import PostList from '../Post/components/PostList';
 import Typography from '@mui/material/Typography';
 

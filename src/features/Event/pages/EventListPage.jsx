@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllEvent } from '../../../api/eventApi';
 import EventList from '../components/EventList';
-import { Button, CircularProgress, Dialog } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 
 function EventListPage(props) {
   const [eventList, setEventList] = useState([]);
