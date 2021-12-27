@@ -23,12 +23,16 @@ function EventListPage(props) {
     }
   };
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      return navigate.push('/login');
-    }
-    refetchEvent();
-  }, []);
+  useEffect(
+    () => {
+      if (!isLoggedIn) {
+        return navigate.push('/login');
+      }
+      refetchEvent();
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   return (
     <div>
