@@ -1,34 +1,42 @@
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Badge, Button } from 'reactstrap';
 import { useSnackbar } from 'notistack';
 import { useSelector } from 'react-redux';
-import { joinEvent, leaveEvent } from '../../../api/eventApi';
+import { deleteEvent, joinEvent, leaveEvent } from '../../../api/eventApi';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-function EventItem({ event, refetchEvent }) {
+function EventItem({ event, refetchEvent, adminMode, refetchEventAdmin }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useHistory();
   const user = useSelector((state) => state.user.current);
-  const isRegisted = event.registedStudent.some(
+  const isRegisted = event.registedStudent?.some(
     (student) => student._id.toString() === user._id.toString()
   );
-  console.log(isRegisted);
   const { enqueueSnackbar } = useSnackbar();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = async () => {
     setAnchorEl(null);
+    try {
+      await deleteEvent(event._id);
+      refetchEventAdmin();
+      enqueueSnackbar('Delete event successfully', { variant: 'success' });
+    } catch (error) {
+      console.log({ error });
+    }
   };
 
   const handleRedirect = () => {
-    // navigate.push(`/post/${post._id}`);
+    if (adminMode) {
+      navigate.push(`/event/${event._id}`);
+    }
   };
 
   const handleJoinEvent = async () => {
@@ -46,7 +54,9 @@ function EventItem({ event, refetchEvent }) {
   const handleLeaveEvent = async () => {
     try {
       await leaveEvent(event._id);
-      enqueueSnackbar(`Leave ${event.name} successfully!`);
+      enqueueSnackbar(`Leave ${event.name} successfully!`, {
+        variant: 'success',
+      });
       refetchEvent();
     } catch (error) {
       enqueueSnackbar('error');
@@ -54,26 +64,28 @@ function EventItem({ event, refetchEvent }) {
   };
 
   return (
-    <div className="wrapper">
-      <div className="left">
-        {isRegisted ? (
-          <Button
-            color="danger"
-            disabled={event.status === 'closed'}
-            onClick={handleLeaveEvent}
-          >
-            Leave
-          </Button>
-        ) : (
-          <Button
-            color="primary"
-            disabled={event.status === 'closed'}
-            onClick={handleJoinEvent}
-          >
-            JOIN
-          </Button>
-        )}
-      </div>
+    <div className="wrapper" onClick={handleRedirect}>
+      {!adminMode && (
+        <div className="left">
+          {isRegisted ? (
+            <Button
+              color="danger"
+              disabled={event.status === 'closed'}
+              onClick={handleLeaveEvent}
+            >
+              Leave
+            </Button>
+          ) : (
+            <Button
+              color="primary"
+              disabled={event.status === 'closed'}
+              onClick={handleJoinEvent}
+            >
+              JOIN
+            </Button>
+          )}
+        </div>
+      )}
       <div className="outer-right">
         <div className="right" onClick={handleRedirect}>
           <p
@@ -93,10 +105,31 @@ function EventItem({ event, refetchEvent }) {
             </Badge>
             {'  '} Expire Date:{' '}
             <Badge color="info">
-              {event.expiredDay.split('').splice(0, 10).join('')}
+              {event.expiredDay?.split('').splice(0, 10).join('')}
             </Badge>
           </div>
         </div>
+        {adminMode && (
+          <div className="more-option">
+            <IconButton
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              <MoreVertIcon />
+            </IconButton>
+
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>Delete</MenuItem>
+            </Menu>
+          </div>
+        )}
       </div>
     </div>
   );

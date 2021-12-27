@@ -27,7 +27,7 @@ function SearchPostList(props) {
   return (
     <div>
       <Typography variant="h5" color="initial" className="mb-2">
-        {postList.length !== 0 && `Search results with ${x}`}
+        {postList.length !== 0 && `Search results with "${x}"`}
 
         {postList.length === 0 && `No result with ${x}`}
       </Typography>

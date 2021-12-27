@@ -6,12 +6,13 @@ import { NavLink, useHistory } from 'react-router-dom';
 import CreateTopicForm from '../components/CreateTopicForm';
 import Typography from '@mui/material/Typography';
 import CreateEventForm from '../components/CreateEventForm';
+import CreateUserForm from '../components/CreateUserForm';
 
 function DashboardPage(props) {
   const user = useSelector((state) => state.user.current);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useHistory();
-  const [seletedCpn, setSeletedCpn] = useState('User');
+  const [seletedCpn, setSeletedCpn] = useState('Event');
 
   useEffect(() => {
     if (user.role !== 'admin') {
@@ -99,12 +100,13 @@ function DashboardPage(props) {
         <Typography
           variant="h4"
           color="#406882"
-          style={{ borderBottom: '1px solid #C7B198' }}
+          style={{ borderBottom: '1px solid #C7B198', marginBottom: '8px' }}
         >
           {seletedCpn}
         </Typography>
 
         {seletedCpn === 'Event' && <CreateEventForm />}
+        {seletedCpn === 'User' && <CreateUserForm />}
       </div>
     </div>
   );

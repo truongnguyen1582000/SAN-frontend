@@ -10,6 +10,11 @@ export const getAllEvent = () => {
   return axiosClient.get(url);
 };
 
+export const getEvent = (id) => {
+  const url = `/event/${id}`;
+  return axiosClient.get(url);
+};
+
 export const joinEvent = (id) => {
   const url = `/event/${id}/join-event`;
   return axiosClient.post(url);
@@ -21,3 +26,8 @@ export const leaveEvent = (id) => {
 };
 
 export const attendEvent = () => {};
+
+export const deleteEvent = (id) => {
+  const url = `/event/${id}`;
+  return axiosClient.delete(url);
+};

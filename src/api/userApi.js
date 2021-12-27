@@ -6,3 +6,18 @@ export const userApi = {
     return axiosClient.post(url, data);
   },
 };
+
+export const createUser = (data) => {
+  const url = '/auth/create-user';
+  return axiosClient.post(url, data);
+};
+
+export const deleteUser = (id) => {
+  const url = `/auth/${id}`;
+  return axiosClient.delete(url);
+};
+
+export const getAll = () => {
+  const url = '/auth';
+  return axiosClient.get(url);
+};
