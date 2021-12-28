@@ -143,8 +143,8 @@ export default function ButtonAppBar() {
                   open={isMenuOpen}
                   onClose={handleMenuClose}
                 >
-                  <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleMenuClose}>Select Topic</MenuItem>
+                  {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
+                  {/* <MenuItem onClick={handleMenuClose}>Select Topic</MenuItem> */}
                   <MenuItem onClick={handleLogout}>Log out</MenuItem>
                 </Menu>
               </div>
